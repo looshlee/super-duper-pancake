@@ -33,10 +33,10 @@ jobs:
       - always-success
     if: "!(failure() || cancelled())"
     env: 
-      STEPS_CONTEXT: ${{ toJSON(steps) }}
+        GITHUB_CONTEXT: ${{ toJSON(github) }}
     steps:
       - shell: bash
-        run: echo "$STEPS_CONTEXT"
+        run: echo "$GITHUB_CONTEXT"
   runs-upon-cancellation:
     runs-on: ubuntu-latest
     needs:
