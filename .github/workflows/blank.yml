@@ -3,12 +3,14 @@ on: push
 
 jobs:
   always-skipped:
+    name: skipped
     runs-on: ubuntu-latest
     if: false
     steps:
       - shell: bash
         run: echo "This job will always be skipped"
   always-success:
+    name: succeed
     runs-on: ubuntu-latest
     if: true
     steps:
@@ -20,7 +22,7 @@ jobs:
     needs:
       - always-skipped
       - always-success
-    if: success() && steps.always-skipped.conclusion != 'skipped' && steps.always-success.conclusion != 'skipped'
+    if: success() && steps.skipped.conclusion != 'skipped' && steps.succeed.conclusion != 'skipped'
     steps:
       - shell: bash
         run: echo "This job should run when no job has failed or been cancelled"
