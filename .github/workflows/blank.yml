@@ -32,8 +32,6 @@ jobs:
       - always-skipped
       - always-success
     if: "!(failure() || cancelled())"
-    env: 
-        JOB_CONTEXT: ${{ toJSON(job) }}
     steps:
       - shell: bash
         run: echo ${{ needs.always-skipped.result }}
