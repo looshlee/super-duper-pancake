@@ -20,7 +20,7 @@ jobs:
     needs:
       - always-skipped
       - always-success
-    if: success()
+    if: success() && steps.always-skipped.conclusion != 'skipped' && steps.always-success.conclusion != 'skipped'
     steps:
       - shell: bash
         run: echo "This job should run when no job has failed or been cancelled"
