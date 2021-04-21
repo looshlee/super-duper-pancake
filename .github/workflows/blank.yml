@@ -22,7 +22,7 @@ jobs:
     needs:
       - always-skipped
       - always-success
-    if: success() && steps.skipped.conclusion != 'skipped' && steps.succeed.conclusion != 'skipped'
+    if: success()
     steps:
       - shell: bash
         run: echo "This job should run when no job has failed or been cancelled"
@@ -32,9 +32,11 @@ jobs:
       - always-skipped
       - always-success
     if: "!(failure() || cancelled())"
+    env: 
+      STEPS_CONTEXT: ${{ toJSON(steps) }}
     steps:
       - shell: bash
-        run: echo "This job should run when no job has failed or been cancelled"
+        run: echo "$STEPS_CONTEXT"
   runs-upon-cancellation:
     runs-on: ubuntu-latest
     needs:
