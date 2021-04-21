@@ -22,9 +22,10 @@ jobs:
     needs:
       - always-skipped
       - always-success
-    if: ${{ needs.always-skipped.result }} == 'skipped' && ${{ needs.always-succeed.result }} == 'success'
+    if: always()
     steps:
       - shell: bash
+        if: ${{ needs.always-skipped.result }} == 'skipped' && ${{ needs.always-succeed.result }} == 'success'
         run: echo "This job should run when no job has failed or been cancelled"
   runs-upon-no-failure:
     runs-on: ubuntu-latest
